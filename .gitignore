@@ -1,2 +1,26 @@
-/node_modules
-*.json
+# Dependencies
+node_modules/
+
+# Environment variables (contains credentials)
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+
+# Lock files (optional - remove if you want to track)
+package-lock.json

@@ -1,0 +1,28 @@
+{
+  "name": "duo-streak-keeper-js",
+  "version": "1.0.0",
+  "description": "Automatically protect your Duolingo streak by purchasing streak freezes when you need them",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "status": "node index.js --status",
+    "dry-run": "node index.js --dry-run"
+  },
+  "keywords": [
+    "duolingo",
+    "streak",
+    "automation",
+    "language-learning"
+  ],
+  "author": "marcbal77",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7"
+  }
+}
