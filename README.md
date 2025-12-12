@@ -1,118 +1,146 @@
-# Duo Streak Keeper (JavaScript)
+```
+    ____              _____ __                  __      __ __
+   / __ \__  ______  / ___// /_________  ____ _/ /__   / //_/__  ___  ____  ___  _____
+  / / / / / / / __ \ \__ \/ __/ ___/ _ \/ __ `/ //_/  / ,< / _ \/ _ \/ __ \/ _ \/ ___/
+ / /_/ / /_/ / /_/ /___/ / /_/ /  /  __/ /_/ / ,<    / /| /  __/  __/ /_/ /  __/ /
+/_____/\__,_/\____//____/\__/_/   \___/\__,_/_/|_|  /_/ |_\___/\___/ .___/\___/_/
+                                                                  /_/    [JavaScript]
+```
 
-Automatically protect your Duolingo streak by purchasing streak freezes when you need them.
+# 🔥 Duo Streak Keeper JS
 
-> Looking for the Python version? Check out [duo-streak-keeper](https://github.com/marcbal77/duo-streak-keeper)
+### 🌍 Keep Your Language Learning Streak Alive 📚
 
-## Features
+> ⚠️ **Important:** This is an educational project demonstrating API integration with Node.js. It uses unofficial Duolingo endpoints that may change without notice. Use at your own risk — automated use may violate Duolingo's Terms of Service.
 
-- **Automatic Protection** — Purchases streak freezes when you don't have one active
-- **Email Notifications** — Get alerts for purchases, low gems, and errors
-- **Dry Run Mode** — Preview actions without making actual purchases
-- **Status Check** — Monitor your streak and gem balance without taking action
+---
 
-## Requirements
+## 🦉 What Does This Do?
 
-- Node.js 18.0.0 or higher
-- A Duolingo account with sufficient gems (200 per streak freeze)
+This tool automatically purchases streak freezes for your Duolingo account when needed, protecting your learning progress. Run it daily and it will:
 
-## Installation
+1. ✅ Log into your Duolingo account
+2. ✅ Check if you have an active streak freeze
+3. ✅ Purchase one (200 gems) if you don't
+4. ✅ Send you an email notification (optional)
 
+**No more losing your streak because you forgot to practice!**
+
+---
+
+## 🎓 Quick Start (Non-Coders Welcome!)
+
+### What You'll Need
+- **Node.js 18+** — [Download here](https://nodejs.org/)
+- **A Duolingo account** with 200+ gems
+- **15 minutes** to set up
+
+### Step-by-Step Setup
+
+**1. Download the project**
 ```bash
 git clone https://github.com/marcbal77/DuolingoStreakApp.git
 cd DuolingoStreakApp
+```
+
+**2. Install dependencies**
+```bash
 npm install
 ```
 
-## Configuration
-
-1. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Edit `.env` with your credentials:
-   ```env
-   DUOLINGO_USERNAME=your_username_or_email
-   DUOLINGO_PASSWORD=your_password
-   ```
-
-3. (Optional) Configure email notifications for alerts:
-   ```env
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=your_email@gmail.com
-   SMTP_PASS=your_app_password
-   NOTIFICATION_EMAIL=your_email@gmail.com
-   ```
-
-   For Gmail, you'll need an [App Password](https://support.google.com/accounts/answer/185833).
-
-## Usage
-
-### Check and Maintain Streak
-
+**3. Create your config file**
 ```bash
-# Run the streak keeper
-npm start
-
-# Or directly
-node index.js
+cp .env.example .env
 ```
 
-### Preview Mode (Dry Run)
+**4. Add your credentials**
 
+Open `.env` in any text editor and fill in:
+```env
+DUOLINGO_USERNAME=your_email_or_username
+DUOLINGO_PASSWORD=your_password
+```
+
+**5. Test it out**
 ```bash
 npm run dry-run
-
-# Or
-node index.js --dry-run
 ```
 
-### Status Check Only
-
+**6. Run for real**
 ```bash
-npm run status
-
-# Or
-node index.js --status
+npm start
 ```
 
-### Command Line Options
+---
 
-| Option | Description |
-|--------|-------------|
-| `-d, --dry-run` | Preview actions without making purchases |
-| `-s, --status` | Show current streak status only |
-| `--no-email` | Disable email notifications |
-| `-V, --version` | Output version number |
-| `-h, --help` | Display help |
+## 💻 For Developers
 
-## Automation
+### Project Structure
+```
+duo-streak-keeper-js/
+├── index.js              # CLI entry point
+├── src/
+│   ├── duolingo-api.js   # API client
+│   ├── streak-manager.js # Business logic
+│   └── notifications.js  # Email alerts
+├── .env.example          # Config template
+└── package.json
+```
 
-### Cron (Linux/macOS)
+### CLI Options
+```bash
+node index.js              # Run streak keeper
+node index.js --dry-run    # Preview without purchasing
+node index.js --status     # Check current streak info
+node index.js --no-email   # Disable email notifications
+node index.js --help       # Show all options
+```
 
+### npm Scripts
+```bash
+npm start      # Run streak keeper
+npm run dry-run   # Preview mode
+npm run status    # Check status only
+```
+
+---
+
+## 📧 Email Notifications
+
+Get alerts when:
+- ✅ Streak freeze purchased
+- ⚠️ Gem balance running low
+- ❌ Unable to purchase (not enough gems)
+- 💔 Streak broken
+
+**Gmail Setup:**
+1. Enable [2-Step Verification](https://myaccount.google.com/security)
+2. Create an [App Password](https://support.google.com/accounts/answer/185833)
+3. Add to `.env`:
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+NOTIFICATION_EMAIL=your_email@gmail.com
+```
+
+---
+
+## ⏰ Automation
+
+### Cron (Mac/Linux)
 Run daily at 11 PM:
-
 ```bash
 crontab -e
 ```
-
 Add:
 ```
-0 23 * * * cd /path/to/DuolingoStreakApp && /usr/bin/node index.js >> /var/log/duo-streak.log 2>&1
+0 23 * * * cd /path/to/DuolingoStreakApp && node index.js >> /dev/null 2>&1
 ```
 
-### Task Scheduler (Windows)
-
-1. Open Task Scheduler
-2. Create a new task to run `node index.js` daily
-3. Set the working directory to the project folder
-
-### GitHub Actions
-
+### GitHub Actions (Free & Serverless)
 Create `.github/workflows/streak.yml`:
-
 ```yaml
 name: Maintain Streak
 
@@ -136,25 +164,50 @@ jobs:
           DUOLINGO_PASSWORD: ${{ secrets.DUOLINGO_PASSWORD }}
 ```
 
-Add your credentials as repository secrets.
+---
 
-## How It Works
+## 🔒 Security & Privacy
 
-1. Logs into your Duolingo account using the API
-2. Checks if you have an active streak freeze
-3. If no freeze is active and you have 200+ gems, purchases one
-4. Sends email notification (if configured)
+- ✅ Credentials stored locally in `.env` (never committed)
+- ✅ Password cleared from memory after login
+- ✅ No data sent anywhere except Duolingo's servers
+- ✅ Open source — inspect the code yourself
 
-## Disclaimer
+---
 
-**This tool uses unofficial Duolingo API endpoints.** Using this tool:
+## ⚖️ Legal
 
-- May violate Duolingo's Terms of Service
-- Could result in account suspension
-- Is at your own risk
+**Disclaimer:** This software is provided "as is" without warranty. The author is not responsible for any consequences of using this tool, including but not limited to account suspension.
 
-The API endpoints may change without notice, which could break this tool.
+**Terms of Service:** Using automated tools with Duolingo may violate their ToS. Use at your own risk for educational/personal purposes only.
 
-## License
+---
+
+## 🐍 Looking for Python?
+
+This is the **JavaScript/Node.js** version. There's also a Python version available:
+
+| Version | Repository | Best For |
+|---------|------------|----------|
+| **JavaScript** (you are here) | [DuolingoStreakApp](https://github.com/marcbal77/DuolingoStreakApp) | Node.js users, web developers |
+| **Python** | [duo-streak-keeper](https://github.com/marcbal77/duo-streak-keeper) | Python users, data scientists |
+
+Both versions have the same features — pick whichever language you prefer!
+
+---
+
+## 📝 License
 
 MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+## 🤝 Contributing
+
+Found a bug? Have an idea? [Open an issue](https://github.com/marcbal77/DuolingoStreakApp/issues) or submit a PR!
+
+---
+
+<p align="center">
+  <i>Built with ☕ to protect 🔥 streaks</i>
+</p>
